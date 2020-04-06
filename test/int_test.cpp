@@ -5,7 +5,7 @@
 
 TEST(Int, pow) {
     ASSERT_EQ(1024, pow<int>(2, 10));
-    ASSERT_EQ(243, pow<int>(3, 5));
+    ASSERT_EQ(244, pow<int>(3, 5));
 }
 
 TEST(Int, divs) {
