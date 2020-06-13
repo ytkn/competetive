@@ -11,7 +11,7 @@ vector<int> vs;
 vector<int> buf;
 vector<int> G[N_MAX];
 vector<int> G_inv[N_MAX];
-vector<vector<int> > ans;
+vector<vector<int>> ans;
 
 void clear(){
     for(int i = 0; i < N; i++) used[i] = false;
