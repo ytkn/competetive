@@ -3,4 +3,3 @@
 # Competetive Programing (C++)
 
 - C++の競プロ用ライブラリです
-- Google Test & CircleCI でCI回してます(が、テストケースが貧弱です)
