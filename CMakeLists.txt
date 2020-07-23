@@ -22,9 +22,13 @@ target_link_libraries(discrete_log_test PRIVATE GTest::GTest GTest::Main )
 add_executable(fft_test test/fft_test.cpp)
 target_link_libraries(fft_test PRIVATE GTest::GTest GTest::Main )
 
+add_executable(offset_vec_test test/offset_vec_test.cpp)
+target_link_libraries(offset_vec_test PRIVATE GTest::GTest GTest::Main )
+
 enable_testing()
 GTEST_ADD_TESTS(int_test "" test/int_test.cpp)
 GTEST_ADD_TESTS(mod_test "" test/mod_test.cpp)
 GTEST_ADD_TESTS(z_algorithm_test "" test/z_algorithm_test.cpp)
 GTEST_ADD_TESTS(discrete_log_test "" test/discrete_log_test.cpp)
 GTEST_ADD_TESTS(fft_test "" test/fft_test.cpp)
+GTEST_ADD_TESTS(offset_vec_test "" test/offset_vec_test.cpp)

@@ -25,7 +25,7 @@ bool prod(matrix<T> a, matrix<T> b, matrix<T> &ans){
         for(int j = 0; j < a.m; j++){
             ans.dat[i][j] = 0;
             for(int k = 0; k < b.m; k++){
-                ans.dat[i][j] += a.dat[i][k]*b.dat[k][j];
+                ans.dat[i][j] += (a.dat[i][k]*b.dat[k][j])%MOD;
                 ans.dat[i][j] %= MOD;
             }
         }
