@@ -23,6 +23,16 @@ class ModInt{
     ModInt operator/(ll n){
         return ModInt((ModInt(n).inv()*v).v%MOD);
     }
+
+    void operator+=(ll n){
+        v = (v+n)%MOD;
+    }
+    void operator-=(ll n){
+        v = (v-n+MOD)%MOD;
+    }
+    void operator*=(ll n){
+        v = (v*n)%MOD;
+    }
     
     
     ModInt operator+(ModInt n){
@@ -37,6 +47,17 @@ class ModInt{
     ModInt operator/(ModInt n){
         return ModInt((n.inv()*v).v%MOD);
     }
+
+    void operator+=(ModInt n){
+        v = (v+n.v)%MOD;
+    }
+    void operator-=(ModInt n){
+        v = (v-n.v+MOD)%MOD;
+    }
+    void operator*=(ModInt n){
+        v = (v*n.v)%MOD;
+    }
+
     void operator=(ModInt n){
         v = n.v;
     }
