@@ -37,7 +37,7 @@ class SuffixArray{
             }
         }
 
-        // sa is initlally constructed
+        // sa should be initlally constructed
         void construct_lcp(){
             lcp = vector<int>(n+1);
 

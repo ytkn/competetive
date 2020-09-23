@@ -1,4 +1,5 @@
 #include <iostream>
+#define N_MAX 200002
 
 using namespace std;
 typedef long long ll;
@@ -79,4 +80,38 @@ ostream& operator<<(ostream& os, const ModInt& m){
 istream & operator >> (istream &in,  ModInt &m){
     in >> m.v;
     return in;
+}
+
+ModInt pow(ModInt a, ll n) {
+	ModInt ans = 1;
+	ModInt tmp = a;
+	for (int i = 0; i <= 60; i++) {
+		ll m = (ll)1 << i;
+		if (m & n) {
+		ans *= tmp;
+		}
+		tmp *= tmp;
+	}
+	return ans;
+}
+
+ModInt inv[N_MAX],fac[N_MAX],finv[N_MAX];
+
+void init(){
+    fac[0]=1;fac[1]=1;
+    finv[0]=1;finv[1]=1;
+    inv[1]=1;
+    for(int i=2;i<N_MAX;i++){
+        inv[i]=(ModInt)MOD-inv[MOD%i]*(MOD/i);
+        fac[i]=fac[i-1]*(ll) i;
+        finv[i]=finv[i-1]*inv[i];
+    }
+}
+
+ModInt comb(ll n, ll r){
+  if(n < r){
+      return ModInt(0);
+  }else{
+      return fac[n]*finv[r]*finv[n-r];
+  }
 }

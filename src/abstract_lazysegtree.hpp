@@ -38,12 +38,12 @@ struct LazySegmentTree {
         return 0; //適宜変える
     }
 
-    LazySegmentTree(vector<T> v, T UNIT) {
+    LazySegmentTree(vector<T> v, T UNIT, S UNIT_LAZY) {
         int sz = (int)v.size();
         unit = UNIT;
         n = 1; while(n < sz) n *= 2;
         node.resize(2*n-1, unit);
-        lazy.resize(2*n-1, 0);
+        lazy.resize(2*n-1, UNIT_LAZY);
         lazyFlag.resize(2*n-1, false);
 
         for(int i=0; i<sz; i++) node[i+n-1] = v[i];

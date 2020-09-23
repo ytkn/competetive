@@ -1,71 +1,54 @@
-#include <complex>
 #include <vector>
+#include <complex>
 
 using namespace std;
 
-const double PI = M_PI;
-const complex<double> I(0.0, 1.0);
-
-complex<double> omega(int k, int n){
-    return exp(2.0*PI*I*(double)k/(double)n);
+// Cooley–Tukey FFT algorithm O(N log N)
+vector<complex<double>> fft(vector<complex<double>> a, bool inverse = false) {
+    int n = a.size();
+    int h = 0;
+    for (int i = 0; 1 << i < n; i++) h++;
+    for (int i = 0; i < n; i++) {
+        int j = 0;
+        for (int k = 0; k < h; k++) j |= (i >> k & 1) << (h - 1 - k);
+        if (i < j) swap(a[i], a[j]);
+    }
+    for (int b = 1; b < n; b *= 2) {
+        for (int j = 0; j < b; j++) {
+            complex<double> w =
+                polar(1.0, (2 * M_PI) / (2 * b) * j * (inverse ? 1 : -1));
+            for (int k = 0; k < n; k += b * 2) {
+                complex<double> s = a[j + k];         
+                complex<double> t = a[j + k + b] * w; 
+                a[j + k] = s + t;                     
+                a[j + k + b] = s - t;
+            }
+        }
+    }
+    if (inverse)
+        for (int i = 0; i < n; i++) a[i] /= n;
+    return a;
 }
 
-vector<complex<double>> fft(vector<double> coefs){
-    int n = coefs.size();
-    if(n == 1) {
-        complex<double> x(coefs[0], 0.0);
-        return vector<complex<double>>(1, x);
-    }
-    vector<double> v_even, v_odd;
-    for(int i = 0; i < n; i++){
-        if(i%2 == 0) v_even.push_back(coefs[i]);
-        else v_odd.push_back(coefs[i]);
-    }
-    auto result_even = fft(v_even);
-    auto result_odd = fft(v_odd);
-    vector<complex<double>> ans;
-    for(int i = 0; i < n; i++){
-        ans.push_back(result_even[i%(n/2)] + omega(i, n)*result_odd[i%(n/2)]);
-    }
-    return ans;
+vector<complex<double>> fft(vector<double> a, bool inverse = false) {
+    vector<complex<double>> a_complex(a.size());
+    for (int i = 0; i < a.size(); i++) a_complex[i] = complex<double>(a[i], 0);
+    return fft(a_complex, inverse);
 }
-
-vector<complex<double>> inverse_fft(vector<complex<double>> coefs){
-    int n = coefs.size();
-    if(n == 1) {
-        return vector<complex<double>>(1, coefs[0]);
+ 
+vector<double> convolve(vector<double> a, vector<double> b) {
+    int s = a.size() + b.size() - 1;
+    int t = 1;
+    while (t < s) t *= 2;
+    a.resize(t); 
+    b.resize(t); 
+    vector<complex<double>> A = fft(a);
+    vector<complex<double>> B = fft(b);
+    for (int i = 0; i < t; i++) {
+        A[i] *= B[i]; 
     }
-    vector<complex<double>> v_even, v_odd;
-    for(int i = 0; i < n; i++){
-        if(i%2 == 0) v_even.push_back(coefs[i]);
-        else v_odd.push_back(coefs[i]);
-    }
-    auto result_even = inverse_fft(v_even);
-    auto result_odd = inverse_fft(v_odd);
-    vector<complex<double>> ans;
-    for(int i = 0; i < n; i++){
-        ans.push_back(result_even[i%(n/2)] + omega(-i, n)*result_odd[i%(n/2)]);
-    }
-    return ans;
-}
-
-/**
- * 多項式の積を計算 
- */
-vector<double> multiply(vector<double> f, vector<double> g){
-    int sz = 1;
-    while (sz < f.size() + g.size()) sz *= 2;
-    vector<double> nf(sz), ng(sz);
-    for(int i = 0; i < f.size(); i++) {
-        nf[i] = f[i];
-        ng[i] = g[i];
-    }
-    auto result_f = fft(nf);
-    auto result_g = fft(ng);
-    vector<complex<double>> conv;
-    for(int i = 0; i < sz; i++) conv.push_back(result_f[i]*result_g[i]);
-    auto mul = inverse_fft(conv);
-    vector<double> ans;
-    for(complex<double> coef : mul) ans.push_back(coef.real()/sz);
-    return ans;
+    A = fft(A, true); 
+    a.resize(s);     
+    for (int i = 0; i < s; i++) a[i] = A[i].real();
+    return a;
 }

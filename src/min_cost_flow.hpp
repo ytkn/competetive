@@ -23,6 +23,7 @@ void add_edge(int from, int to, ll cap, ll cost){
     G[to].push_back((edge){from, 0, -cost, G[from].size()-1});
 }
 
+// Vを初期化してからつかうこと
 ll min_cost_flow(int s, int t, int f){
     ll res = 0;
     while(f > 0){
