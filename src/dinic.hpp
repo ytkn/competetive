@@ -9,6 +9,9 @@ const int INF =  100000000;
 
 struct edge {int to, cap, rev;};
 
+/**
+ * 多分バグってる
+ */
 class Dinic{
     public:
         Dinic(int n){

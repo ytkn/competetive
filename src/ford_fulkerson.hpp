@@ -1,10 +1,9 @@
 #include <iostream>
 #include <vector>
-#include <cstring>
 
 using namespace std;
 
-const int INF =  100000000;
+const int INF = 100000000;
 
 struct edge {int to, cap, rev;};
 

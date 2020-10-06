@@ -20,6 +20,7 @@ void dfs(int v, int p, int d){
     }
 }
 
+// V:頂点数、rootが初期化されていること
 void init(int V){
     dfs(root, -1, 0);
     for(int i = 0; i < N_LOG_MAX-1; i++){
