@@ -1,49 +1,66 @@
 #include <iostream>
 #include <vector>
+#include <cassert>
 
 using namespace std;
 typedef long long ll;
 
-const int N_MAX = 160000;
-const int N_LOG_MAX = 25;
-vector<int> G[N_MAX];
-int root;
+/**
+ * 多分大丈夫
+ **/
+class Lca{
+    public:
+        vector<int> depth;
+        vector<vector<int>> parent;
+        vector<vector<int>> G;
+        int root;
+        int n;
+        const int N_LOG_MAX = 25;
+        bool initialized = false;
 
-int parent[N_LOG_MAX][N_MAX];
-int depth[N_MAX];
-
-void dfs(int v, int p, int d){
-    parent[0][v] = p;
-    depth[v] = d;
-    for(int i = 0; i < G[v].size(); i++){
-        if(G[v][i] != p) dfs(G[v][i], v, d+1); 
-    }
-}
-
-// V:頂点数、rootが初期化されていること
-void init(int V){
-    dfs(root, -1, 0);
-    for(int i = 0; i < N_LOG_MAX-1; i++){
-        for(int v = 0; v < V; v++){
-            if(parent[i][v] < 0) parent[i+1][v] = -1;
-            else parent[i+1][v] = parent[i][parent[i][v]];
+        Lca(vector<vector<int>> g, int _root){
+            n = g.size();
+            G = g;
+            root = _root;
+            parent = vector<vector<int>>(N_LOG_MAX, vector<int>(n));
+            depth = vector<int>(n, 0);
         }
-    }
-}
 
-int lca(int u, int v){
-    if(depth[u] > depth[v]) swap(u, v);
-    for(int i = 0; i < N_LOG_MAX; i++){
-        if((depth[v] - depth[u]) >> i & 1){
-            v = parent[i][v];
+        void init(){
+            initialized = true;
+            dfs(root, -1, 0);
+            for(int i = 0; i < N_LOG_MAX-1; i++){
+                for(int v = 0; v < n; v++){
+                    if(parent[i][v] < 0) parent[i+1][v] = -1;
+                    else parent[i+1][v] = parent[i][parent[i][v]];
+                }
+            }
         }
-    }
-    if(u == v) return u;
-    for(int i = N_LOG_MAX-1; i >= 0; i--){
-        if(parent[i][u] != parent[i][v]) {
-            u = parent[i][u];
-            v = parent[i][v];
+
+        int lca(int u, int v){
+            assert(initialized);
+            if(depth[u] > depth[v]) swap(u, v);
+            for(int i = 0; i < N_LOG_MAX; i++){
+                if((depth[v] - depth[u]) >> i & 1){
+                    v = parent[i][v];
+                }
+            }
+            if(u == v) return u;
+            for(int i = N_LOG_MAX-1; i >= 0; i--){
+                if(parent[i][u] != parent[i][v]) {
+                    u = parent[i][u];
+                    v = parent[i][v];
+                }
+            }
+            return parent[0][u];
         }
-    }
-    return parent[0][u];
-}
+
+    private:
+        void dfs(int v, int p, int d){
+            parent[0][v] = p;
+            depth[v] = d;
+            for(int i = 0; i < G[v].size(); i++){
+                if(G[v][i] != p) dfs(G[v][i], v, d+1); 
+            }
+        }
+};

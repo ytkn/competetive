@@ -1,5 +1,5 @@
 #include <iostream>
-#define N_MAX 200002
+#include "matrix.hpp"
 
 using namespace std;
 typedef long long ll;
@@ -95,6 +95,22 @@ ModInt pow(ModInt a, ll n) {
 	return ans;
 }
 
+// x^0 + x^1 + ... + x^n-1
+ModInt sum_pow(ModInt x, ll n){
+    matrix<ModInt> m(2, 2);
+    m.dat[0][0] = x; m.dat[0][1] = 0;
+    m.dat[1][0] = 1; m.dat[1][1] = 1;
+    matrix<ModInt> v(2,1);
+    v.dat[0][0] = 1;
+    v.dat[1][0] = 0;
+    matrix<ModInt> p(2, 2);
+    pow_mat<ModInt>(m, n, p);
+    matrix<ModInt> p_sum(2, 1);
+    prod(p, v, p_sum);
+    return p_sum.dat[1][0];
+}
+
+#define N_MAX 200002
 ModInt inv[N_MAX],fac[N_MAX],finv[N_MAX];
 
 void init(){

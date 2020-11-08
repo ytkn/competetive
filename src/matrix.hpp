@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <cassert>
 
 using namespace std;
 
@@ -20,7 +21,7 @@ struct matrix{
 
 template <typename T>
 bool prod(matrix<T> a, matrix<T> b, matrix<T> &ans){
-    if(a.m != b.n) return false;
+    assert(a.m != b.n);
     for(int i = 0; i < a.n; i++){
         for(int j = 0; j < a.m; j++){
             ans.dat[i][j] = 0;
@@ -35,6 +36,8 @@ bool prod(matrix<T> a, matrix<T> b, matrix<T> &ans){
 
 template <typename T>
 void copy_mat(matrix<T> a, matrix<T> &b){
+    assert(a.n == b.n);
+    assert(a.m == b.m);
     for(int i = 0; i < a.n; i++){
         for(int j = 0; j < a.m; j++){
             b.dat[i][j] = a.dat[i][j];
@@ -43,7 +46,7 @@ void copy_mat(matrix<T> a, matrix<T> &b){
 }
 
 template <typename T>
-void pow(matrix<T> a, ll n, matrix<T> &ans){
+void pow_mat(matrix<T> a, ll n, matrix<T> &ans){
     matrix<T> buf(a.n, a.n);
     matrix<T> tmp(a.n, a.n);
     copy_mat(a, tmp);

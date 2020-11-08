@@ -11,10 +11,27 @@ struct edge{
     int from, to;
 };
 
+/**
+ * 動くか不明 
+ */
 class dcc{
     public:
-        dcc(vector<edge> v, int size);
-        vector<int> G[N_MAX];
+        dcc(vector<edge> v, int size){
+            G = vector<vector<int>>(size);
+            used = vector<bool>(size, false);
+            col = vector<int>(size, 1);
+            num = vector<int>(size, -1);
+            for(auto iter = v.begin(); iter != v.end(); iter++){
+                int from = iter->from;
+                int to = iter->to;
+                G[from].push_back(to);
+                G[to].push_back(from);
+            }
+            cur = -1;
+            N = size;
+        }
+
+        vector<vector<int>> G;
         int N;
         vector<edge> run(){
             vector<edge> bridges;
@@ -24,9 +41,9 @@ class dcc{
             return bridges;
         }
     private:
-        bool used[N_MAX];
-        int col[N_MAX];
-        int num[N_MAX];
+        vector<bool> used;
+        vector<int> col;
+        vector<int> num;
         int cur;
         void dfs(int u, int p){
             used[u] = true;
@@ -61,19 +78,3 @@ class dcc{
             }
         }
 };
-
-dcc::dcc(vector<edge> v, int size){
-    for(auto iter = v.begin(); iter != v.end(); iter++){
-        int from = iter->from;
-        int to = iter->to;
-        G[from].push_back(to);
-        G[to].push_back(from);
-    }
-    for(int i = 0; i < size; i++){
-        used[i] = false;
-        col[i] = 0;
-        num[i] = -1;
-    }
-    cur = -1;
-    N = size;
-}
