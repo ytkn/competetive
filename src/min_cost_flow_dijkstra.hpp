@@ -1,8 +1,10 @@
 #include <vector>
+#include <queue>
 
 using namespace std;
 
 typedef long long ll;
+typedef pair<ll, int> P;
 
 const ll INF = 1e18;
 
@@ -12,6 +14,9 @@ struct edge{
     int rev;
 };
 
+/**
+ * 負のコストの辺がない場合のみ使える 
+ */
 class MinCostFlow{
     public:
         int V;  // 頂点数
@@ -33,22 +38,24 @@ class MinCostFlow{
             while(f > 0){
                 fill(dist.begin(), dist.end(), INF);
                 dist[s] = 0;
-                bool update = true;
-                while(update){
-                    update = false;
-                    for(int v = 0; v < V; v++){
-                        if(dist[v] == INF) continue;
-                        for(int i = 0; i < G[v].size(); i++){
-                            edge &e = G[v][i];
-                            if(e.cap > 0 && dist[e.to] > dist[v]+e.cost){
-                                dist[e.to] = dist[v]+e.cost;
-                                prevv[e.to] = v;
-                                preve[e.to] = i;
-                                update = true;
-                            }
+                priority_queue<P, vector<P>, greater<P>> que;
+                que.push(P(0, s));
+                while(!que.empty()){
+                    P top = que.top(); que.pop();
+                    int v = top.second;
+                    ll d = top.first;
+                    if(dist[v] != d) continue;
+                    for(int i = 0; i < G[v].size(); i++){
+                        edge &e = G[v][i];
+                        if(e.cap > 0 && dist[e.to] > dist[v]+e.cost){
+                            dist[e.to] = dist[v]+e.cost;
+                            prevv[e.to] = v;
+                            preve[e.to] = i;
+                            que.push(P(dist[e.to], e.to));
                         }
                     }
                 }
+                
                 if(dist[t] == INF){
                     return -1;
                 }

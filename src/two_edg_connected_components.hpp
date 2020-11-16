@@ -12,22 +12,23 @@ struct edge{
 };
 
 /**
- * 動くか不明 
+ * dfs木上の後退辺に対応するpathをimos法で塗っていく
+ * 塗られなかった辺が橋となる
+ * verified by ARC039 D
  */
 class dcc{
     public:
         dcc(vector<edge> v, int size){
             G = vector<vector<int>>(size);
             used = vector<bool>(size, false);
-            col = vector<int>(size, 1);
-            num = vector<int>(size, -1);
-            for(auto iter = v.begin(); iter != v.end(); iter++){
-                int from = iter->from;
-                int to = iter->to;
+            col = vector<int>(size, 0);
+            depth = vector<int>(size, 0);
+            for(edge e : v){
+                int from = e.from;
+                int to = e.to;
                 G[from].push_back(to);
                 G[to].push_back(from);
             }
-            cur = -1;
             N = size;
         }
 
@@ -35,7 +36,7 @@ class dcc{
         int N;
         vector<edge> run(){
             vector<edge> bridges;
-            dfs(0, -1);
+            dfs(0, -1, 0);
             clear();
             paint(0, -1, bridges);
             return bridges;
@@ -43,31 +44,30 @@ class dcc{
     private:
         vector<bool> used;
         vector<int> col;
-        vector<int> num;
-        int cur;
-        void dfs(int u, int p){
+        vector<int> depth;
+        void dfs(int u, int p, int d){
             used[u] = true;
-            cur++;
-            num[u] = cur;
-            for(int i = 0; i < G[u].size(); i++){
-                if(G[u][i] == p) continue;
-                if(used[G[u][i]] && num[G[u][i]] < num[u] ){
-                    col[u] = 1;
-                    col[G[u][i]] = -1;
-                }else if(!used[G[u][i]]){
-                    dfs(G[u][i], u);
+            depth[u] = d;
+            for(int to : G[u]){
+                if(to == p) continue;
+                if(used[to] && depth[to] < depth[u]){
+                    col[u]++;
+                    col[to]--;
+                }else if(!used[to]){
+                    dfs(to, u, d+1);
                 }
             }
         }
+
         void paint(int u, int p, vector<edge> &v){
             used[u] = true;
-            for(int i = 0; i < G[u].size(); i++){
-                if(G[u][i] == p) continue;
-                if(!used[G[u][i]]){
-                    paint(G[u][i], u, v);
-                    col[u] += col[G[u][i]];
-                    if(col[G[u][i]] == 0){
-                        v.push_back((edge){u, G[u][i]});
+            for(int to : G[u]){
+                if(to == p) continue;
+                if(!used[to]){
+                    paint(to, u, v);
+                    col[u] += col[to];
+                    if(col[to] == 0){
+                        v.push_back((edge){u, to});
                     }
                 }
             }

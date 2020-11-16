@@ -5,9 +5,7 @@
 using namespace std;
 typedef long long ll;
 
-/**
- * 多分大丈夫
- **/
+
 class Lca{
     public:
         vector<int> depth;
