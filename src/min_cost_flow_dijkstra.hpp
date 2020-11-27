@@ -15,7 +15,7 @@ struct edge{
 };
 
 /**
- * 負のコストの辺がない場合のみ使える 
+ * 負のコストの辺がない場合のみ使える
  */
 class MinCostFlow{
     public:
@@ -25,6 +25,7 @@ class MinCostFlow{
             V = v;
             G = vector<vector<edge>>(v, vector<edge>());
             dist = vector<ll>(v);
+            h = vector<ll>(v);
             preve = vector<int>(v);
             prevv = vector<int>(v);
         }
@@ -47,8 +48,8 @@ class MinCostFlow{
                     if(dist[v] != d) continue;
                     for(int i = 0; i < G[v].size(); i++){
                         edge &e = G[v][i];
-                        if(e.cap > 0 && dist[e.to] > dist[v]+e.cost){
-                            dist[e.to] = dist[v]+e.cost;
+                        if(e.cap > 0 && dist[e.to] > dist[v]+e.cost+h[v]-h[e.to]){
+                            dist[e.to] = dist[v]+e.cost+h[v]-h[e.to];
                             prevv[e.to] = v;
                             preve[e.to] = i;
                             que.push(P(dist[e.to], e.to));
@@ -59,12 +60,13 @@ class MinCostFlow{
                 if(dist[t] == INF){
                     return -1;
                 }
+                for(int i = 0; i < V; i++) h[i] += dist[i];
                 ll d = f;
                 for(int v = t; v != s; v = prevv[v]){
                     d = min(d, G[prevv[v]][preve[v]].cap);
                 }
                 f -= d;
-                res += d*dist[t];
+                res += d*h[t];
                 for(int v = t; v != s; v = prevv[v]){
                     edge &e = G[prevv[v]][preve[v]];
                     e.cap -= d;
@@ -75,6 +77,6 @@ class MinCostFlow{
         }
 
     private:
-        vector<ll> dist;
+        vector<ll> dist, h;
         vector<int> prevv, preve;
 };

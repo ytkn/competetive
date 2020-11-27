@@ -17,15 +17,18 @@ struct matrix{
             dat.push_back(vector<T>(m));
         }
     }
+    vector<T>& operator[](int x) {
+        return dat[x];
+	}
 };
 
 template <typename T>
 bool prod(matrix<T> a, matrix<T> b, matrix<T> &ans){
-    assert(a.m != b.n);
+    assert(a.m == b.n);
     for(int i = 0; i < a.n; i++){
         for(int j = 0; j < a.m; j++){
             ans.dat[i][j] = 0;
-            for(int k = 0; k < b.m; k++){
+            for(int k = 0; k < b.n; k++){
                 ans.dat[i][j] += (a.dat[i][k]*b.dat[k][j])%MOD;
                 ans.dat[i][j] %= MOD;
             }

@@ -10,6 +10,7 @@ class ModInt{
     public:
     ll v;
     ModInt(ll _v = 0){
+        if(_v >= MOD) _v %= MOD;
         v = _v;
     }
     ModInt operator+(ll n){
@@ -19,6 +20,7 @@ class ModInt{
         return ModInt((v-n+MOD)%MOD);
     }
     ModInt operator*(ll n){
+        if(n >= MOD) n %= MOD;
         return ModInt((v*n)%MOD);
     }
     ModInt operator/(ll n){
@@ -125,9 +127,9 @@ void init(){
 }
 
 ModInt comb(ll n, ll r){
-  if(n < r){
-      return ModInt(0);
-  }else{
-      return fac[n]*finv[r]*finv[n-r];
-  }
+    if(n < r){
+        return ModInt(0);
+    }else{
+        return fac[n]*finv[r]*finv[n-r];
+    }
 }

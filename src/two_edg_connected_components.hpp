@@ -16,9 +16,9 @@ struct edge{
  * 塗られなかった辺が橋となる
  * verified by ARC039 D
  */
-class dcc{
+class TwoEdgeConnectedComponents{
     public:
-        dcc(vector<edge> v, int size){
+        TwoEdgeConnectedComponents(vector<edge> v, int size){
             G = vector<vector<int>>(size);
             used = vector<bool>(size, false);
             col = vector<int>(size, 0);

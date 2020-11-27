@@ -17,9 +17,9 @@ struct LazySegmentTree {
 
     T (*calc)(T, T);
     S (*propagateLazy)(S, S);
-    T (*merge)(T, S);
+    T (*merge)(S, T);
 
-    LazySegmentTree(vector<T> v, T UNIT, S UNIT_LAZY, T (*_calc)(T, T), S (*_propagateLazy)(S, S), T (*_merge)(T, S)) {
+    LazySegmentTree(vector<T> v, T UNIT, S UNIT_LAZY, T (*_calc)(T, T), S (*_propagateLazy)(S, S), T (*_merge)(S, T)) {
         int sz = (int)v.size();
         unit = UNIT;
         unit_lazy = UNIT_LAZY;
