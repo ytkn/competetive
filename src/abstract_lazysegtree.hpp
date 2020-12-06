@@ -10,37 +10,22 @@ template <typename T, typename S>
 struct LazySegmentTree {
     int n;
     T unit;
+    S unit_lazy;
     vector<T> node;
     vector<S> lazy;
     vector<bool> lazyFlag;
 
-    T calc(T a, T b){
-        T ans;
-        ans = max(a, b); //適宜変える
-        return ans;
-    }
+    T (*calc)(T, T);
+    S (*propagateLazy)(S, S);
+    T (*merge)(S, T);
 
-    S calcLazy(S a, S b){
-        S ans;
-        ans = a+b; //適宜変える
-        return ans;
-    }
-
-    S propagateLazy(S lazy1, S lazy2){
-        return lazy1+lazy2; //適宜変える
-    }
-
-    T merge(T node, S lazy){
-        return node+lazy; //適宜変える
-    }
-
-    S clearLazy(){
-        return 0; //適宜変える
-    }
-
-    LazySegmentTree(vector<T> v, T UNIT, S UNIT_LAZY) {
+    LazySegmentTree(vector<T> v, T UNIT, S UNIT_LAZY, T (*_calc)(T, T), S (*_propagateLazy)(S, S), T (*_merge)(S, T)) {
         int sz = (int)v.size();
         unit = UNIT;
+        unit_lazy = UNIT_LAZY;
+        calc = _calc;
+        propagateLazy = _propagateLazy;
+        merge = _merge;
         n = 1; while(n < sz) n *= 2;
         node.resize(2*n-1, unit);
         lazy.resize(2*n-1, UNIT_LAZY);
@@ -59,7 +44,7 @@ struct LazySegmentTree {
                 lazyFlag[k*2+1] = lazyFlag[k*2+2] = true;
             }
             lazyFlag[k] = false;
-            lazy[k] = clearLazy();
+            lazy[k] = unit_lazy;
         }
     }
 
@@ -70,7 +55,7 @@ struct LazySegmentTree {
         lazyEvaluate(k, l, r);
         if(b <= l || r <= a) return;
         if(a <= l && r <= b) {
-            lazy[k] = calcLazy(lazy[k], x);
+            lazy[k] = propagateLazy(lazy[k], x);
             lazyFlag[k] = true;
             lazyEvaluate(k, l, r);
         }
