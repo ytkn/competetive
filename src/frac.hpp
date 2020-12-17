@@ -4,7 +4,7 @@
 using namespace std;
 
 /**
- * 有理数の計算用
+ * 有理数の計算用。dが分子でnが分母。
  * atcoderだとたいていmodintで足りるが、Project Eulerだとたまに使える。
  */ 
 template <typename T>
@@ -31,7 +31,7 @@ class frac{
         reduction();
     }
     void reduction(){
-        ll g = gcd(n, d);
+        T g = gcd(n, d);
         n /= g, d /= g;
     }
 };

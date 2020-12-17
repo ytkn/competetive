@@ -1,8 +1,18 @@
 #include <vector>
+#include <initializer_list>
+
 #define MOD 1000000007
 
 using namespace std;
 typedef long long ll;
+
+
+template <typename T>
+T gcd(initializer_list<T> v) {
+	T ans = 0;
+    for(T x : v) ans = gcd(ans, x);
+	return ans;
+}
 
 template <typename T>
 T gcd(T a, T b) {
