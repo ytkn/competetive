@@ -5,7 +5,6 @@
 using namespace std;
 
 typedef long long ll;
-const ll MOD = 1000000007;
 
 template <typename T>
 struct matrix{
@@ -26,11 +25,10 @@ template <typename T>
 bool prod(matrix<T> a, matrix<T> b, matrix<T> &ans){
     assert(a.m == b.n);
     for(int i = 0; i < a.n; i++){
-        for(int j = 0; j < a.m; j++){
+        for(int j = 0; j < b.m; j++){
             ans.dat[i][j] = 0;
             for(int k = 0; k < b.n; k++){
-                ans.dat[i][j] += (a.dat[i][k]*b.dat[k][j])%MOD;
-                ans.dat[i][j] %= MOD;
+                ans.dat[i][j] += (a.dat[i][k]*b.dat[k][j]);
             }
         }
     }
@@ -50,6 +48,7 @@ void copy_mat(matrix<T> a, matrix<T> &b){
 
 template <typename T>
 void pow_mat(matrix<T> a, ll n, matrix<T> &ans){
+    assert(n < ((ll)1<<61));
     matrix<T> buf(a.n, a.n);
     matrix<T> tmp(a.n, a.n);
     copy_mat(a, tmp);
@@ -61,7 +60,7 @@ void pow_mat(matrix<T> a, ll n, matrix<T> &ans){
         ans.dat[i][i] = 1;
     }
     
-    for(int i = 0; i <= 30; i++){
+    for(int i = 0; i <= 60; i++){
         ll m = (ll)1 << i;
         if(m&n){
             prod(tmp, ans, buf);
@@ -79,5 +78,38 @@ void print_mat(matrix<T> a){
             cout << a.dat[i][j] << ' ';
         }
         cout << endl;
+    }
+}
+
+/**
+ * I+a+...+a^nを求めます(ちゃんと検証していないのであってないかも) 
+ */ 
+template<typename T>
+void sum_pow(matrix<T> a, ll n, matrix<T> &ans){
+    assert(a.n == a.m);
+    assert(a.n == ans.n);
+    assert(a.n == ans.m);
+    matrix<T> A(2*a.n, 2*a.n);
+    for(int i = 0; i < a.n; i++){
+        for(int j = 0; j  < a.n; j++){
+            A[i][j] = a[i][j];
+            if(i == j){
+                A[i+a.n][j] = 1;
+                A[i+a.n][j+a.n] = 1;
+            }
+        }
+    }
+    matrix<T> B(2*a.n, a.n);
+    for(int i = 0; i < a.n; i++){
+        B[i][i] = 1;
+    }
+    matrix<T> S(2*a.n, a.n);
+    matrix<T> buf(2*a.n, 2*a.n);
+    pow_mat(A, n+1, buf);
+    prod(buf, B, S);
+    for(int i = 0; i < a.n; i++){
+        for(int j = 0; j < a.n; j++){
+            ans[i][j] = S[i+a.n][j];
+        }
     }
 }

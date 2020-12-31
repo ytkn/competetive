@@ -72,3 +72,42 @@ vector<T> prime_facs(T N) {
 	if (N != 1) ans.push_back(N);
 	return ans;
 }
+
+/**
+ * i^2+1の形の整数を素因数分解します。
+ * ans[i]: i^2+1の素因数分解。
+ */ 
+template <typename T>
+vector<vector<pair<T, int>>> factorize_square_plus_one(ll n){
+	vector<ll> v(n+1);
+    vector<vector<pair<T, int>>> facs(n+1);
+    for(ll i = 1; i <= n; i++) v[i] = i*i+1;
+    for(ll i = 1; i <= n; i++){
+        if(v[i] != 1){
+            ll p = v[i];
+            for(ll j = i+p; j <= n; j += p){
+                int cnt = 0;
+                while(v[j]%p == 0){
+                    v[j] /= p;
+                    cnt++;
+                }
+                facs[j].push_back(P(p, cnt));
+            }
+            if(2*i != p){
+                for(ll j = p-i; j <= n; j += p){
+                    if(j == i) continue;
+                    int cnt = 0;
+                    while(v[j]%p == 0){
+                        v[j] /= p;
+                        cnt++;
+                    }
+                    facs[j].push_back(P(p, cnt));
+                }
+            }
+        }
+    }
+    for(int i = 1; i <= n; i++){
+        if(v[i] != 1) facs[i].push_back(P(v[i], 1));
+    }
+	return facs;
+}
