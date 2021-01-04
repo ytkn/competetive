@@ -26,6 +26,12 @@ class frac{
     frac operator-(frac f){
         return frac(n*f.d-d*f.n, f.d*d);
     }
+    frac operator*(frac f){
+        return frac(f.n*n, f.d*d);
+    }
+    frac inv(){
+        return frac(d, n);
+    }
     bool operator<(frac f){
         if(d*f.d < 0) return n*f.d-d*f.n > 0;
         else return n*f.d-d*f.n < 0;
