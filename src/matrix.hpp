@@ -1,3 +1,6 @@
+#ifndef INCLUDED_MATRIX
+#define INCLUDED_MATRIX
+
 #include <iostream>
 #include <vector>
 #include <cassert>
@@ -81,6 +84,12 @@ void print_mat(matrix<T> a){
     }
 }
 
+template <typename T>
+ostream& operator<<(ostream& os, const matrix<T>& m){
+    print_mat<T>(m);
+    return os;
+}
+
 /**
  * I+a+...+a^nを求めます(ちゃんと検証していないのであってないかも) 
  */ 
@@ -113,3 +122,42 @@ void sum_pow(matrix<T> a, ll n, matrix<T> &ans){
         }
     }
 }
+
+/**
+ * verified: https://judge.yosupo.jp/submission/35808 
+ */
+template<typename T>
+T det(matrix<T> a, T unit_prod, T unit_sum){
+    assert(a.n == a.m);
+    int n = a.n;
+    matrix<T> b(n, n);
+    copy_mat(a, b);
+    int cnt_swap = 0;
+    for(int i = 0; i < n; i++){
+        if(b[i][i] == unit_sum){
+            for(int j = i+1; j < n; j++){
+                if(b[j][i] != unit_sum){
+                    // swap
+                    cnt_swap++;
+                    for(int k = 0; k < n; k++){
+                        swap(b[i][k], b[j][k]);
+                    }
+                    break;
+                }
+            }
+        }
+        if(b[i][i] ==  unit_sum) continue;
+        T inv = unit_prod/b[i][i];
+        for(int j = i+1; j < n; j++){
+            for(int k = n-1; k >= 0; k--){
+                b[j][k] -= b[i][k]*b[j][i]*inv;
+            }
+        }
+    }
+    T ans = unit_prod;
+    for(int i = 0; i < a.n; i++) ans *= b[i][i];
+    if(cnt_swap%2 == 1) ans *= -1;
+    return ans;
+}
+
+#endif

@@ -4,7 +4,7 @@
 using namespace std;
 typedef long long ll;
 
-const ll MOD = 1000000007;
+const ll MOD = 998244353;
 
 class ModInt{
     public:
@@ -34,7 +34,7 @@ class ModInt{
         v = (v-n+MOD)%MOD;
     }
     void operator*=(ll n){
-        v = (v*n)%MOD;
+        v = (v*n+MOD)%MOD;
     }
     
     
@@ -63,6 +63,12 @@ class ModInt{
 
     void operator=(ModInt n){
         v = n.v;
+    }
+    bool operator==(ModInt n){
+        return v == n.v;
+    }
+    bool operator!=(ModInt n){
+        return v != n.v;
     }
     void operator=(ll n){
         v = n;

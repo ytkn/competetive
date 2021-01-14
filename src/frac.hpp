@@ -4,7 +4,7 @@
 using namespace std;
 
 /**
- * 有理数の計算用。dが分子でnが分母。
+ * 有理数の計算用。dが分母でnが分子。
  * atcoderだとたいていmodintで足りるが、Project Eulerだとたまに使える。
  */ 
 template <typename T>
