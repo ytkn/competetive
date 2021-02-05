@@ -26,7 +26,8 @@ T gcd(initializer_list<T> v) {
 
 template <typename T>
 T lcm(T a, T b) {
-  	return (a * b) / gcd<T>(a, b);
+    T g = gcd<T>(a, b);
+  	return (a/g) * (b/g) *g;
 }
 
 template <typename T>
