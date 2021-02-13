@@ -72,7 +72,7 @@ class ModInt{
         return v != n.v;
     }
     void operator=(ll n){
-        v = n;
+        v = n%MOD;
     }
 
     ModInt inv(){

@@ -7,6 +7,7 @@ using namespace std;
  * gがDAGのとき: トポロジカルソートしてorderに結果を詰めてtrueを返します。
  * gがDAGのでないとき: falseを返します。
  * verified(DAGの場合のみ): https://atcoder.jp/contests/dp/tasks/dp_g
+ * verified(DAGの両方): https://yukicoder.me/submissions/614434
  */ 
 bool topological_sort(vector<vector<int>> g, vector<int> &order){
     int n = g.size();
