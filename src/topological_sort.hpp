@@ -6,6 +6,7 @@ using namespace std;
 /**
  * gがDAGのとき: トポロジカルソートしてorderに結果を詰めてtrueを返します。
  * gがDAGのでないとき: falseを返します。
+ * 自己辺はないことを前提として動きます。
  * verified(DAGの場合のみ): https://atcoder.jp/contests/dp/tasks/dp_g
  * verified(DAGの両方): https://yukicoder.me/submissions/614434
  */ 

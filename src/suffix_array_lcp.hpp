@@ -59,6 +59,30 @@ class SuffixArray{
             construct_sa();
             construct_lcp();
         }
+
+        // return: t <= s[i..] ?
+        bool compare(string t, int i){
+            int m = t.size();
+            for(int j = 0; j < m && i+j < S.size(); j++){
+                if(t[j] != S[i+j]) return t[j] < S[i+j]; 
+            }
+            return i+m <= n;
+        }
+
+        /**
+         * TODO: verify
+         */ 
+        int lower_bound(string t){
+            if(compare(t, sa[0])) return 0;
+            if(!compare(t, sa[n])) return n+1;
+            int l = 0, r = n-1;
+            while(r-l > 1){
+                int c = (l+r)/2;
+                if(compare(t, sa[c])) r = c;
+                else l = c;
+            }
+            return r;
+        }
     private:
         // (rank[i], rank[i+k]) vs (rank[j], rank[j+k])
         bool compare_sa(int i, int j, int k){

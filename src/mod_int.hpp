@@ -140,3 +140,8 @@ ModInt comb(ll n, ll r){
         return fac[n]*finv[r]*finv[n-r];
     }
 }
+
+ModInt h(ll n, ll r){
+    if(n == 0 && r == 0) return ModInt(1);
+    return comb(n+r-1, n-1);
+}

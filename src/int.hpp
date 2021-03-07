@@ -30,6 +30,21 @@ T lcm(T a, T b) {
   	return (a/g) * (b/g) *g;
 }
 
+/**
+ * ax + by = gcd(a, b)を満たす(x, y)をつめて、gcd(a, b)を返します。
+ */ 
+template <typename T>
+T extGCD(T a, T b, T &x, T &y) {
+    if (b == 0) {
+        x = 1;
+        y = 0;
+        return a;
+    }
+    T d = extGCD(b, a%b, y, x);
+    y -= a/b * x;
+    return d;
+}
+
 template <typename T>
 T pow(T a, ll n) {
 	T ans = 1;
