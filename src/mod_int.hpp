@@ -92,6 +92,7 @@ istream & operator >> (istream &in,  ModInt &m){
 }
 
 ModInt pow(ModInt a, ll n) {
+    assert(n >= 0);
 	ModInt ans = 1;
 	ModInt tmp = a;
 	for (int i = 0; i <= 60; i++) {

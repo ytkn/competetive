@@ -12,9 +12,10 @@ struct edge{
     ll cost;
 };
 
-void dijkstra(int s, int num_v, vector<edge> G[], ll d[]){
+vector<ll> dijkstra(int s, vector<vector<edge>> G){
     priority_queue<P, vector<P>, greater<P>> que;
-    fill(d, d+num_v, INF);
+    int n = G.size();
+    vector<ll> d(n, INF);
     d[s] = 0;
     que.push(P(0, s));
     while(!que.empty()){
@@ -29,4 +30,5 @@ void dijkstra(int s, int num_v, vector<edge> G[], ll d[]){
             }
         }
     }
+    return d;
 }
