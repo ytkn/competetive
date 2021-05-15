@@ -2,6 +2,9 @@
 
 using namespace std;
 
+/**
+ * verified: https://atcoder.jp/contests/typical90/submissions/21934380
+ */ 
 vector<int> tree_diameter(vector<vector<int>> g){
     int n = g.size();
     vector<bool> used(n, false);
@@ -19,13 +22,13 @@ vector<int> tree_diameter(vector<vector<int>> g){
     dfs(dfs, 0, 0);
     int s = 0;
     for(int i = 0; i < n; i++){
-        if(s < dist[i]) s = i;
+        if(dist[s] < dist[i]) s = i;
     }
     clear();
     dfs(dfs, s, 0);
     int t = 0;
     for(int i = 0; i < n; i++){
-        if(t < dist[i]) t = i;
+        if(dist[t] < dist[i]) t = i;
     }
     int v = t;
     vector<int> path;

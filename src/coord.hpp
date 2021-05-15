@@ -16,9 +16,38 @@ ostream& operator<<(ostream& os, const line<T>& l){
 }
 
 template<typename T>
-struct point {
-    point(T x, T y): x(x), y(y){};
+inline T add(T a, T b){
+    return a+b;
+}
+
+const double eps = 1e-10;
+
+inline double add(double a, double b){
+    if(abs(a+b) < eps*(abs(a)+abs(b))) return 0.0;
+    return a+b;
+}
+
+template<typename T>
+class point {
+    public:
+    point<T>(T x, T y): x(x), y(y){};
+    point<T>(): x(0), y(0){};
     T x, y;
+    point<T> operator + (point<T> p){
+        return point<T>(add(x, p.x), add(y, p.y));
+    };
+    point<T> operator - (point<T> p){
+        return point<T>(add(x, -p.x), add(y, -p.y));
+    };
+    point<T> operator * (T d){
+        return point<T>(x*d, y*d);
+    };
+    T dot(point<T> p){
+        return add(x*p.x, y*p.y);
+    };
+    T det(point<T> p){
+        return add(x*p.y, -y*p.x);
+    };
 };
 
 /**
@@ -41,7 +70,7 @@ T substitute(line<T> l, point<T> p){
  * 直線lとp1, p2を結ぶ線分が交点を持つか否かを返します
  */ 
 template<typename T>
-bool intersects(line<T> l, point<T> p1, point<T> p2){
+bool intersect(line<T> l, point<T> p1, point<T> p2){
     return (substitute(l, p1) > 0) ^ (substitute(l, p2) > 0);
 }
 
@@ -49,7 +78,7 @@ bool intersects(line<T> l, point<T> p1, point<T> p2){
  * p1, p2を結ぶ線分とq1, q2を結ぶ線分が交点を持つか否かを返します
  */ 
 template<typename T>
-bool intersects(point<T> p1, point<T> p2, point<T> q1, point<T> q2){
+bool intersect(point<T> p1, point<T> p2, point<T> q1, point<T> q2){
     auto lp = from_points(p1, p2);
     auto lq = from_points(q1, q2);
     bool fq = (substitute(lq, p1) > 0) ^ (substitute(lq, p2) > 0);
