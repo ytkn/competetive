@@ -19,6 +19,18 @@ struct matrix{
             dat.push_back(vector<T>(m));
         }
     }
+
+    matrix(int n, int m, T val): n(n), m(m){
+        for(int i = 0; i < n; i++){
+            dat.push_back(vector<T>(m, val));
+        }
+    }
+
+    matrix(int n, int m, vector<vector<T>> dat): n(n), m(m), dat(dat){
+        assert((int)dat.size() == n);
+        for(int i = 0; i < n; i++) assert(dat[i].size() == m);
+    }
+    
     vector<T>& operator[](int x) {
         return dat[x];
 	}

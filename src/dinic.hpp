@@ -10,7 +10,7 @@ const int INF =  100000000;
 struct edge {int to, cap, rev;};
 
 /**
- * 多分バグってる
+ * verified: https://yukicoder.me/submissions/660443
  */
 class Dinic{
     public:
@@ -48,7 +48,7 @@ class Dinic{
             for(int i = 0; i < N; i++) level[i] = -1;
         }
         void clear_iter(){
-            for(int i = 0; i < N; i++) level[i] = 0;
+            for(int i = 0; i < N; i++) iter[i] = 0;
         }
 
         int dfs(int v, int t, int f){

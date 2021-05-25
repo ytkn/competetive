@@ -15,7 +15,7 @@ vector<point<T>> convex_hull(vector<point<T>> ps){
     sort(ps.begin(), ps.end(), comp_p<T>);
     vector<point<T>> ans;
     for(int i = 0; i < n; i++){
-        while(ans.size() > 1 && (ans[ans.size()-1]-ans[ans.size()-2]).det(ps[i] - ans[ans.size()-1]) <= 0) ans.pop_back();
+        while(ans.size() > 1 && (ans.back()-ans[ans.size()-2]).det(ps[i] - ans.back()) <= 0) ans.pop_back();
         ans.push_back(ps[i]);
     }
     int bottom_size = ans.size();
