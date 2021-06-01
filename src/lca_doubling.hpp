@@ -53,6 +53,11 @@ class Lca{
             return parent[0][u];
         }
 
+        int dist(int u, int v){
+            int l = lca(u, v);
+            return depth[u]+depth[v]-2*depth[l];
+        }
+
     private:
         void dfs(int v, int p, int d){
             parent[0][v] = p;

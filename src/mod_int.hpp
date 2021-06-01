@@ -11,6 +11,7 @@ class ModInt{
     public:
     ll v;
     ModInt(ll _v = 0){
+        if(_v < 0) _v = (v%MOD)+MOD;
         if(_v >= MOD) _v %= MOD;
         v = _v;
     }
