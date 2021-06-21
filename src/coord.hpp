@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cmath>
+#include <cassert>
 
 using namespace std;
 
@@ -91,4 +92,34 @@ double dist(point<T> p1, point<T> p2){
     T dx = p1.x-p2.x;
     T dy = p1.y-p2.y;
     return sqrt(dx*dx+dy*dy);
+}
+
+/**
+ * 線分p1p2の垂直二等分線を求めます
+ */ 
+line<double> vertical_bisector(point<double> p1, point<double> p2){
+    double a = 2.0*(p2.x-p1.x);
+    double b = 2.0*(p2.y-p1.y);
+    double c = p2.x*p2.x-p1.x*p1.x+p2.y*p2.y-p1.y*p1.y;
+    return line<double>(a, b, -c);
+}
+
+/**
+ * 直線l1と直線l2がただ一つの交点を持つかを返します
+ */ 
+bool intersect(line<double> l1, line<double> l2){
+    if(abs(l1.a*l2.b-l2.a*l1.b) < eps) return false;
+    return true;
+}
+
+/**
+ * 直線l1と直線l2の交点を求めます
+ * 戻り値をoptionalに書き換えるほうが良さそう
+ */ 
+point<double> intersecttion(line<double> l1, line<double> l2){
+    assert(intersect(l1, l2));
+    double x = l1.b*l2.c-l2.b*l1.c;
+    double y = l2.a*l1.c-l1.a*l2.c;
+    double d = l1.a*l2.b-l2.a*l1.b;
+    return point<double>(x/d, y/d);
 }

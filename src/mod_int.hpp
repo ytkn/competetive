@@ -129,7 +129,7 @@ void init(){
     finv[0]=1;finv[1]=1;
     inv[1]=1;
     for(int i=2;i<N_MAX;i++){
-        inv[i]=(ModInt)MOD-inv[MOD%i]*(MOD/i);
+        inv[i]=ModInt(MOD)-inv[MOD%i]*(MOD/i);
         fac[i]=fac[i-1]*(ll) i;
         finv[i]=finv[i-1]*inv[i];
     }
