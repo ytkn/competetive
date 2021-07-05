@@ -20,4 +20,8 @@ class OffsetVec{
         n = _n;
         v = vector<T>(2*n+1);
     }
+    OffsetVec(int _n, T x){
+        n = _n;
+        v = vector<T>(2*n+1, x);
+    }
 };
