@@ -1,15 +1,16 @@
 #include <iostream>
-
-#define N_MAX 200
+#include <vector>
 
 using namespace std;
 typedef long long ll;
 const ll INF = 1e+15;
 
-void warshallfloyd(ll dist[N_MAX][N_MAX], ll edge[N_MAX][N_MAX], int n){
+vector<vector<ll>> warshallfloyd(vector<vector<ll>> g){
+    int n = g.size();
+    vector<vector<ll>> dist(n, vector<ll>(n));
     for(int i = 0; i < n; i++){
         for(int j = 0; j < n; j++){
-            dist[i][j] = edge[i][j];
+            dist[i][j] = g[i][j];
         }
         dist[i][i] = 0;
     }
@@ -21,4 +22,5 @@ void warshallfloyd(ll dist[N_MAX][N_MAX], ll edge[N_MAX][N_MAX], int n){
             }
         }
     }
+    return dist;
 }
