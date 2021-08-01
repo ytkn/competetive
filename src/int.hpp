@@ -45,20 +45,14 @@ T extGCD(T a, T b, T &x, T &y) {
     return d;
 }
 
-template <typename T>
-T pow(T a, ll n) {
-	T ans = 1;
-	T tmp = a;
-	for (int i = 0; i <= 60; i++) {
-		ll m = (ll)1 << i;
-		if (m & n) {
-		ans *= tmp;
-		ans %= MOD;
-		}
-		tmp *= tmp;
-		tmp %= MOD;
-	}
-	return ans;
+ll mod_pow(ll a, ll n, ll mod) {
+    ll ans = 1;
+    while (n > 0) {
+        if (n&1) ans = (ans*a)%mod;
+        a = (a*a)% mod;
+        n >>= 1;
+    }
+    return ans;
 }
 
 template <typename T>
