@@ -7,32 +7,16 @@ project(cmake_example CXX)
 find_package(GTest REQUIRED)
 include_directories(src)
 
-add_executable(int_test test/int_test.cpp)
-target_link_libraries(int_test PRIVATE GTest::GTest GTest::Main )
+function(add_unit_test name)
+    add_executable(${name}_test test/${name}_test.cpp)
+    target_link_libraries(${name}_test PRIVATE GTest::GTest GTest::Main)
+    GTEST_ADD_TESTS(${name}_test "" test/${name}_test.cpp)
+endfunction()
 
-add_executable(mod_test test/mod_test.cpp)
-target_link_libraries(mod_test PRIVATE GTest::GTest GTest::Main )
-
-add_executable(z_algorithm_test test/z_algorithm_test.cpp)
-target_link_libraries(z_algorithm_test PRIVATE GTest::GTest GTest::Main )
-
-add_executable(discrete_log_test test/discrete_log_test.cpp)
-target_link_libraries(discrete_log_test PRIVATE GTest::GTest GTest::Main )
-
-add_executable(fft_test test/fft_test.cpp)
-target_link_libraries(fft_test PRIVATE GTest::GTest GTest::Main )
-
-add_executable(offset_vec_test test/offset_vec_test.cpp)
-target_link_libraries(offset_vec_test PRIVATE GTest::GTest GTest::Main )
-
-add_executable(mod_int_test test/mod_int_test.cpp)
-target_link_libraries(mod_int_test PRIVATE GTest::GTest GTest::Main )
+set(tests discrete_log fft flow int mod_int mod offset_vec z_algorithm)
 
 enable_testing()
-GTEST_ADD_TESTS(int_test "" test/int_test.cpp)
-GTEST_ADD_TESTS(mod_test "" test/mod_test.cpp)
-GTEST_ADD_TESTS(z_algorithm_test "" test/z_algorithm_test.cpp)
-GTEST_ADD_TESTS(discrete_log_test "" test/discrete_log_test.cpp)
-GTEST_ADD_TESTS(fft_test "" test/fft_test.cpp)
-GTEST_ADD_TESTS(offset_vec_test "" test/offset_vec_test.cpp)
-GTEST_ADD_TESTS(mod_int_test "" test/mod_int_test.cpp)
+
+foreach(x ${tests})
+    add_unit_test(${x})
+endforeach()
