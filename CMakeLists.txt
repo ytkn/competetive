@@ -13,7 +13,7 @@ function(add_unit_test name)
     GTEST_ADD_TESTS(${name}_test "" test/${name}_test.cpp)
 endfunction()
 
-set(tests discrete_log fft flow int mod_int mod offset_vec z_algorithm)
+set(tests discrete_log fft flow int mod_int mod offset_vec z_algorithm compress)
 
 enable_testing()
 

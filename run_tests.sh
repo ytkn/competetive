@@ -1,5 +1,6 @@
 #!/bin/bash
 
-cmake build
 cd build
+cmake ..
+make
 make test
