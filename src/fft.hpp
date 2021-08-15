@@ -45,7 +45,7 @@ vector<double> convolve(vector<double> a, vector<double> b) {
     vector<complex<double>> A = fft(a);
     vector<complex<double>> B = fft(b);
     for (int i = 0; i < t; i++) {
-        A[i] *= B[i]; 
+        A[i] *= B[i];
     }
     A = fft(A, true); 
     a.resize(s);     

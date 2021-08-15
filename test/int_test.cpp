@@ -4,8 +4,8 @@
 #include "gtest/gtest.h"
 
 TEST(Int, pow) {
-    ASSERT_EQ(1024, pow<int>(2, 10));
-    ASSERT_EQ(243, pow<int>(3, 5));
+    ASSERT_EQ(1024, mod_pow(2, 10, 1000000007));
+    ASSERT_EQ(243, mod_pow(3, 5, 1000000007));
 }
 
 TEST(Int, divs) {

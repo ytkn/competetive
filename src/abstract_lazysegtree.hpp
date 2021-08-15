@@ -37,7 +37,7 @@ struct LazySegmentTree {
 
     void lazyEvaluate(int k, int l, int r) {
         if(lazyFlag[k]) {
-            node[k] = merge(node[k], lazy[k]);
+            node[k] = merge(lazy[k], node[k]);
             if(r - l > 1) {
                 lazy[k*2+1] = propagateLazy(lazy[k*2+1], lazy[k]);
                 lazy[k*2+2] = propagateLazy(lazy[k*2+2], lazy[k]);

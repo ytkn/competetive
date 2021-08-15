@@ -100,7 +100,7 @@ vector<vector<pair<T, int>>> factorize_square_plus_one(ll n){
                     v[j] /= p;
                     cnt++;
                 }
-                facs[j].push_back(P(p, cnt));
+                facs[j].push_back(make_pair(p, cnt));
             }
             if(2*i != p){
                 for(ll j = p-i; j <= n; j += p){
@@ -110,13 +110,13 @@ vector<vector<pair<T, int>>> factorize_square_plus_one(ll n){
                         v[j] /= p;
                         cnt++;
                     }
-                    facs[j].push_back(P(p, cnt));
+                    facs[j].push_back(make_pair(p, cnt));
                 }
             }
         }
     }
     for(int i = 1; i <= n; i++){
-        if(v[i] != 1) facs[i].push_back(P(v[i], 1));
+        if(v[i] != 1) facs[i].push_back(make_pair(v[i], 1));
     }
 	return facs;
 }
