@@ -172,4 +172,21 @@ T det(matrix<T> a, T unit_prod, T unit_sum){
     return ans;
 }
 
+template<typename T>
+matrix<T> operator*(matrix<T> m1, matrix<T> m2){
+    matrix<T> ans(m1.n, m2.m);
+    prod(m1, m2, ans);
+    return ans;
+}
+
+/**
+ * 累乗
+ */ 
+template<typename T>
+matrix<T> operator^(matrix<T> m, ll r){
+    matrix<T> ans(m.n, m.n);
+    pow_mat(m, r, ans);
+    return ans;
+}
+
 #endif
