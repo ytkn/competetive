@@ -11,6 +11,17 @@ T ceil_div(T a, T b){
     return (a+b-1)/b;
 }
 
+// smallest non negative integer r which satisfies (a-r)%b == 0
+template<typename T>
+T pos_rem(T a, T b){
+    assert(b != 0);
+    if(b > 0){
+        return ((a%b)+b)%b;
+    }
+    b = -b;
+    return ((a%b)+b)%b;
+}
+
 template<typename T>
 vector<T> add_vector(vector<T> u, vector<T> v){
     assert(u.size() == v.size());
