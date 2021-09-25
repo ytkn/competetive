@@ -10,7 +10,7 @@ vector<vector<int>> gen_tree(int n){
     random_device rnd;
     mt19937 mt(rnd());
     UnionFind uf(n);
-    vector<vector<int>> tree;
+    vector<vector<int>> tree(n);
     set<pair<int, int>> used;
     auto add_edge = [&](int u, int v){
         if(u == v) return;
