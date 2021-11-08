@@ -5,6 +5,7 @@ typedef long long ll;
 
 /**
  * 置換操作 
+ * permutation: (0, 1, ..., n-1)がpermutationに移るような置換操作の意味
  */
 vector<int> operate(vector<int> prev, vector<int> permutation){
     int n = permutation.size();
@@ -25,7 +26,7 @@ vector<int> pow(vector<int> a, ll n) {
 	for (int i = 0; i <= 60; i++) {
 		ll m = (ll)1 << i;
 		if (m & n) {
-		ans = operate(ans, tmp);
+		    ans = operate(ans, tmp);
 		}
 		tmp = operate(tmp, tmp);
 	}

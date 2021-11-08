@@ -74,15 +74,15 @@ void pow_mat(matrix<T> a, ll n, matrix<T> &ans){
         }
         ans.dat[i][i] = 1;
     }
-    
-    for(int i = 0; i <= 60; i++){
-        ll m = (ll)1 << i;
-        if(m&n){
+
+    while (n > 0) {
+        if (n&1) {
             prod(tmp, ans, buf);
             copy_mat(buf, ans);
         }
         prod(tmp, tmp, buf);
         copy_mat(buf, tmp);
+        n >>= 1;
     }
 }
 

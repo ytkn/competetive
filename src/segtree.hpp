@@ -8,19 +8,17 @@ struct segtree{
     int n;
     T UNIT;
     vector<T> dat;
-    segtree(int n_, T unit){
+    T (*calc)(T, T);
+
+    segtree(int n_, T unit, T (*_calc)(T, T)){
         UNIT = unit;
+        calc = _calc;
         n = 1;
         while(n < n_) n *= 2;
         dat = vector<T>(2*n);
         for(int i = 0; i < 2*n; i++) dat[i] = UNIT;
     }
 
-    T calc(T a, T b){
-        T ans;
-        ans = min(a, b);
-        return ans;
-    }
     void insert(int k, T a){
         dat[k+n-1] = a;
     }

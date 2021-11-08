@@ -15,7 +15,7 @@ struct edge{
 };
 
 /**
- * 負のコストの辺がない場合のみ使える
+ * 負のコストの辺がない場合のみ対応
  */
 class MinCostFlow{
     public:

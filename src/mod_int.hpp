@@ -106,21 +106,6 @@ ModInt pow(ModInt a, ll n) {
 	return ans;
 }
 
-// x^0 + x^1 + ... + x^n-1
-ModInt sum_pow(ModInt x, ll n){
-    matrix<ModInt> m(2, 2);
-    m.dat[0][0] = x; m.dat[0][1] = 0;
-    m.dat[1][0] = 1; m.dat[1][1] = 1;
-    matrix<ModInt> v(2,1);
-    v.dat[0][0] = 1;
-    v.dat[1][0] = 0;
-    matrix<ModInt> p(2, 2);
-    pow_mat<ModInt>(m, n, p);
-    matrix<ModInt> p_sum(2, 1);
-    prod(p, v, p_sum);
-    return p_sum.dat[1][0];
-}
-
 #define N_MAX 200002
 ModInt inv[N_MAX],fac[N_MAX],finv[N_MAX];
 
@@ -146,4 +131,19 @@ ModInt comb(ll n, ll r){
 ModInt h(ll n, ll r){
     if(n == 0 && r == 0) return ModInt(1);
     return comb(n+r-1, n-1);
+}
+
+// x^0 + x^1 + ... + x^n-1
+ModInt sum_pow(ModInt x, ll n){
+    matrix<ModInt> m(2, 2);
+    m.dat[0][0] = x; m.dat[0][1] = 0;
+    m.dat[1][0] = 1; m.dat[1][1] = 1;
+    matrix<ModInt> v(2,1);
+    v.dat[0][0] = 1;
+    v.dat[1][0] = 0;
+    matrix<ModInt> p(2, 2);
+    pow_mat<ModInt>(m, n, p);
+    matrix<ModInt> p_sum(2, 1);
+    prod(p, v, p_sum);
+    return p_sum.dat[1][0];
 }

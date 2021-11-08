@@ -24,8 +24,8 @@ class MinCostFlow{
             prevv = vector<int>(v);
         }
         void add_edge(int from, int to, ll cap, ll cost){
-            G[from].push_back((edge){to, cap, cost, G[to].size()});
-            G[to].push_back((edge){from, 0, -cost, G[from].size()-1});
+            G[from].push_back((edge){to, cap, cost, (int)G[to].size()});
+            G[to].push_back((edge){from, 0, -cost, (int)G[from].size()-1});
         }
 
         ll min_cost_flow(int s, int t, int f){
