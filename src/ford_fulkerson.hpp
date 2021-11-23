@@ -5,26 +5,32 @@ using namespace std;
 
 const int INF = 100000000;
 
-struct edge {int to, cap, rev;};
+template<typename Cap>
+struct edge {
+    int to;
+    Cap cap;
+    int rev;
+};
 
+template<typename Cap>
 class FordFolkerson{
     public:
         FordFolkerson(int n){
             N = n;
-            G = vector<vector<edge>>(n, vector<edge>());
+            G = vector<vector<edge<Cap>>>(n, vector<edge<Cap>>());
             used = vector<bool>(n, false);
         }
 
-        void add_edge(int from, int to, int cap){
-            G[from].push_back((edge{to, cap, (int)G[to].size()}));
-            G[to].push_back((edge{from, 0, (int)G[from].size()-1}));
+        void add_edge(int from, int to, Cap cap){
+            G[from].push_back((edge<Cap>{to, cap, (int)G[to].size()}));
+            G[to].push_back((edge<Cap>{from, 0, (int)G[from].size()-1}));
         }
 
-        int max_flow(int s, int t){
-            int flow = 0;
+        Cap max_flow(int s, int t){
+            Cap flow = 0;
             while(true){
                 clear_used();
-                int f = dfs(s, t, INF);
+                Cap f = dfs(s, t, INF);
                 if(f == 0){
                     break;
                 }
@@ -34,18 +40,18 @@ class FordFolkerson{
         }
 
     private:
-        vector<vector<edge>> G;
+        vector<vector<edge<Cap>>> G;
         vector<bool> used;
         int N;
         void clear_used(){
             for(int i = 0; i < N; i++) used[i] = false;
         }
 
-        int dfs(int v, int t, int f){
+        Cap dfs(int v, int t, Cap f){
             if(v == t) return f;
             used[v] = true;
             for(int i = 0; i < G[v].size(); i++){
-                edge &e = G[v][i];
+                edge<Cap> &e = G[v][i];
                 if(!used[e.to] && e.cap > 0){
                     int d = dfs(e.to, t, min(f, e.cap));
                     if(d > 0){
