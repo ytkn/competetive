@@ -6,6 +6,7 @@ project(cmake_example CXX)
 
 find_package(GTest REQUIRED)
 include_directories(src)
+include_directories(generator)
 
 function(add_unit_test name)
     add_executable(${name}_test test/${name}_test.cpp)
@@ -13,7 +14,7 @@ function(add_unit_test name)
     GTEST_ADD_TESTS(${name}_test "" test/${name}_test.cpp)
 endfunction()
 
-set(tests discrete_log fft flow int mod_int mod offset_vec z_algorithm compress)
+set(tests discrete_log fft flow int mod_int mod offset_vec z_algorithm compress convex_hull_trick)
 
 enable_testing()
 
