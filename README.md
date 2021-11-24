@@ -3,3 +3,9 @@
 # Competetive Programing (C++)
 
 - C++の競プロ用ライブラリです
+
+## Testing
+
+```bash
+./run_test.sh
+```
