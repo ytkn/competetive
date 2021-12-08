@@ -95,14 +95,11 @@ istream & operator >> (istream &in,  ModInt &m){
 ModInt pow(ModInt a, ll n) {
     assert(n >= 0);
 	ModInt ans = 1;
-	ModInt tmp = a;
-	for (int i = 0; i <= 60; i++) {
-		ll m = (ll)1 << i;
-		if (m & n) {
-		ans *= tmp;
-		}
-		tmp *= tmp;
-	}
+    while (n > 0) {
+        if (n&1) ans = ans*a;
+        a = a*a;
+        n >>= 1;
+    }
 	return ans;
 }
 

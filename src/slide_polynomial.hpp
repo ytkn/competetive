@@ -38,6 +38,7 @@ mint pow(mint a, ll n) {
 
 /**
  * a0+a1*(x+c)^1+ ... + an*(x+c)^nの係数を求める
+ * verified: https://judge.yosupo.jp/submission/69076
  */ 
 vector<mint> slide_polynomial(vector<mint> a, int c){
     int n = a.size();

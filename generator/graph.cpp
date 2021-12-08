@@ -11,14 +11,12 @@ vector<vector<int>> gen_tree(int n){
     mt19937 mt(rnd());
     UnionFind uf(n);
     vector<vector<int>> tree(n);
-    set<pair<int, int>> used;
     auto add_edge = [&](int u, int v){
         if(u == v) return;
         if(u > v) swap(u, v);
-        if(used.count(make_pair(u, v))) return;
+        if(uf.findSet(u, v)) return;
         tree[u].push_back(v);
         tree[v].push_back(u);
-        used.insert(make_pair(u, v));
         uf.unionSet(u, v);
     };
     while(uf.size(0) != n){

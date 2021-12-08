@@ -1,6 +1,7 @@
 #include "mod_int.hpp"
 
 #include "gtest/gtest.h"
+#include "generator_utils.cpp"
 
 TEST(ModInt, add) {
     ModInt n = 10;
@@ -36,4 +37,24 @@ TEST(ModInt, div) {
     ModInt m = 20;
     ASSERT_EQ(5, (n/2).v);
     ASSERT_EQ(2, (m/n).v);
+}
+
+ModInt naive_power(ModInt x, int r){
+    ModInt ans = 1;
+    for(int i = 0; i < r; i++) ans *= x;
+    return ans;
+}
+
+void run_test_pow(int x, int r){
+    ModInt expected = naive_power(ModInt(x), r).v;
+    ASSERT_EQ(pow(ModInt(x), r).v, expected.v);
+    // Fermat's little theorem
+    ASSERT_EQ(pow(ModInt(x), r+MOD-1).v, expected.v);
+    ASSERT_EQ(pow(ModInt(x), r+(MOD-1)*1000000ll).v, expected.v);
+}
+
+TEST(ModInt, power) {
+    for(int i = 0; i < 100; i++){
+        run_test_pow(randint(1, 10000), randint(1, 1000));
+    }
 }

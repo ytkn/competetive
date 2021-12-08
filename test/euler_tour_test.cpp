@@ -48,5 +48,6 @@ void test_by_depth(vector<vector<int>> tree){
 TEST(euler_tour, depth) {
     for(int i = 0; i < 10; i++) {
         auto tree = gen_tree(100);
+        test_by_depth(tree);
     }
 }
