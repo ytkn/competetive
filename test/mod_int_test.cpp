@@ -58,3 +58,21 @@ TEST(ModInt, power) {
         run_test_pow(randint(1, 10000), randint(1, 1000));
     }
 }
+
+ModInt naive_comb(int n, int r){
+    ModInt ans = 1;
+    for(int i = 0; i < r; i++){
+        ans *= n-i;
+        ans *= ModInt(i+1).inv();
+    }
+    return ans;
+}
+
+TEST(ModInt, comb){
+    init();
+    for(int n = 1; n <= 100; n++){
+        for(int r = 0; r <= n; r++){
+            ASSERT_EQ(comb(n, r).v, naive_comb(n, r).v);
+        }
+    }
+}
