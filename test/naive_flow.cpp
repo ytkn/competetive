@@ -5,7 +5,7 @@
 using namespace std;
 
 /**
- * s-tカットを全探索することでs-tフローを求めます
+ * s-tカットを全探索することでs-t最大フローを求めます
  */ 
 template<typename Cap>
 int naive_flow(int n, int s, int t, vector<int> a, vector<int> b, vector<Cap> c){
