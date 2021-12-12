@@ -1,6 +1,7 @@
 #include <vector>
 #include <iostream>
 #include <cassert>
+#include <cmath>
 
 using namespace std;
 
@@ -9,6 +10,15 @@ using namespace std;
 template<typename T>
 T ceil_div(T a, T b){
     return (a+b-1)/b;
+}
+
+/**
+ * y*y <= xを満たす最大の非負整数yを返します
+ */ 
+long long floor_sqrt(long long x){
+    long long sq = sqrt(x)+0.1;
+    if(sq*sq > x) sq--;
+    return sq;
 }
 
 // smallest non negative integer r which satisfies (a-r)%b == 0

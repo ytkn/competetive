@@ -34,3 +34,27 @@ TEST(utils, naive_divide) {
         }
     }
 }
+
+void test_floor_sqrt(int x){
+    ll sq = floor_sqrt(x);
+    ASSERT_LE(sq*sq, x);
+    ASSERT_GT((sq+1)*(sq+1), x);
+}
+
+TEST(utils, floor_sqrt) {
+    for(ll x = 1; x <= 10000; x++){
+        test_floor_sqrt(x);
+        for(int d = -5; d <= 5; d++){
+            ll y = x*x-d;
+            if(y > 0) test_floor_sqrt(y);
+        }
+    }
+    for(int i = 0; i < 100000; i++){
+        int x = randint(1, 1e9);
+        test_floor_sqrt(x);
+        for(int d = -5; d <= 5; d++){
+            ll y = x*x-d;
+            if(y > 0) test_floor_sqrt(y);
+        }
+    }
+}
