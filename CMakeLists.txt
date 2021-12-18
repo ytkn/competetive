@@ -14,7 +14,7 @@ function(add_unit_test name)
     GTEST_ADD_TESTS(${name}_test "" test/${name}_test.cpp)
 endfunction()
 
-set(tests discrete_log fft int mod_int mod offset_vec z_algorithm compress convex_hull_trick ford_fulkerson dinic euler_tour utils)
+set(tests discrete_log fft int mod_int mod offset_vec z_algorithm compress convex_hull_trick ford_fulkerson dinic euler_tour utils cumsum_grid)
 
 enable_testing()
 
