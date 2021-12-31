@@ -31,14 +31,14 @@ void test_by_depth(vector<vector<int>> tree){
     int root = 0;
     auto depth = calc_depth(tree, root);
     auto et = EulerTour(tree, root);
-    bit<int> bt(et.ord.size());
-    for(int i = 1; i+1 < et.ord.size(); i++){
+    bit<int> bt(et.ord.size()+1);
+    for(int i = 0; i < et.ord.size(); i++){
         int v = et.ord[i];
-        if(et.in[v] == i) bt.add(i, 1);
-        if(et.out[v] == i) bt.add(i+1, -1);
+        if(et.in[v] == i) bt.add(i+1, 1);
+        if(et.out[v] == i) bt.add(i+2, -1);
     }
     auto get_depth = [&](int v){
-        return bt.sum(et.in[v]);
+        return bt.sum(et.in[v]+1)-1;
     };
     for(int i = 0; i < n; i++){
         ASSERT_EQ(get_depth(i), depth[i]);
