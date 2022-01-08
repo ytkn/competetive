@@ -1,4 +1,5 @@
 #include <vector>
+#include <cassert>
 
 using namespace std;
 
@@ -32,6 +33,7 @@ class EulerTour{
             chmin(in[ord[i]], i);
             chmax(out[ord[i]], i);
         }
+        assert(ord.size() == 2*n-1);
     }
     void dfs(int v, vector<bool> &seen){
         seen[v] = true;
