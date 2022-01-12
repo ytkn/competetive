@@ -40,3 +40,9 @@ M operator^(M m, ll r){
     }
     return ans;
 }
+
+void print_mat(M mat){
+    cout << mat.a00 << ' ' << mat.a01 << endl;
+    cout << mat.a10 << ' ' << mat.a11 << endl;
+    cout << endl;
+}

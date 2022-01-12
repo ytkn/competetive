@@ -6,7 +6,7 @@
 using namespace std;
 
 /**
- * verified?: https://yukicoder.me/submissions/729519
+ * verified?: https://yukicoder.me/submissions/729519, https://yukicoder.me/problems/no/1269/submissions
  */
 class AhoCorasick {
     struct Edge{

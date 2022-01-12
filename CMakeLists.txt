@@ -17,7 +17,8 @@ endfunction()
 set(
     tests
     discrete_log
-    fft int
+    fft
+    int
     mod_int
     mod
     offset_vec
@@ -31,6 +32,7 @@ set(
     cumsum_grid
     binary_operation
     aho_corasick
+    binary_trie
 )
 
 enable_testing()
