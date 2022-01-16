@@ -33,6 +33,8 @@ set(
     binary_operation
     aho_corasick
     binary_trie
+    mat_sized
+    matrix
 )
 
 enable_testing()
