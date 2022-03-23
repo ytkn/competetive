@@ -1,6 +1,8 @@
 #include <array>
 #include <iostream>
 
+#include "mod_int.hpp"
+
 using namespace std;
 
 template<typename T, int N, int M>
@@ -60,4 +62,17 @@ template <typename T, int N, int M>
 ostream& operator<<(ostream& os, const Matrix<T, N, M>& m){
     print_mat<T, N, M>(m);
     return os;
+}
+
+// x^0 + x^1 + ... + x^n-1
+ModInt sum_pow(ModInt x, ll n){
+    Matrix<ModInt, 2, 2> m(ModInt(0));
+    m.dat[0][0] = x; m.dat[0][1] = 0;
+    m.dat[1][0] = 1; m.dat[1][1] = 1;
+    Matrix<ModInt, 2, 1> v(ModInt(0));
+    v.dat[0][0] = 1;
+    v.dat[1][0] = 0;
+    Matrix<ModInt, 2, 2> p = m^n;
+    Matrix<ModInt, 2, 1> p_sum = p*v;
+    return p_sum.dat[1][0];
 }

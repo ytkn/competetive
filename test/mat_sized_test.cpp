@@ -5,7 +5,7 @@
 
 using mint = ModInt;
 
-mint fib_kth(int k){
+mint fib_kth(ll k){
     Matrix<mint, 2, 2> A(mint(0));
     Matrix<mint, 2, 1> a(mint(0));
     a[0][0] = 0;
