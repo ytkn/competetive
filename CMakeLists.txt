@@ -35,6 +35,7 @@ set(
     binary_trie
     mat_sized
     matrix
+    rollback_unionfind
 )
 
 enable_testing()
