@@ -21,6 +21,20 @@ long long floor_sqrt(long long x){
     return sq;
 }
 
+/**
+ * nの約数の個数を数えます(O(N^(1/2)))
+ */ 
+int count_divs(long long n){
+    int ans = 0;
+    for(long long x = 1; x*x <= n; x++){
+        if(n%x == 0){
+            ans++;
+            if(x*x != n) ans++;
+        }
+    }
+    return ans;
+}
+
 // smallest non negative integer r which satisfies (a-r)%b == 0
 template<typename T>
 T pos_rem(T a, T b){

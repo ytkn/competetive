@@ -58,3 +58,17 @@ TEST(utils, floor_sqrt) {
         }
     }
 }
+
+int naive_count_divs(int n){
+    int ans = 0;
+    for(int x = 1; x <= n; x++){
+        if(n%x == 0) ans++;
+    }
+    return ans;
+}
+
+TEST(utils, count_divs){
+    for(ll x = 1; x <= 1000; x++){
+        ASSERT_EQ(count_divs(x), naive_count_divs(x));
+    }
+}
