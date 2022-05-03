@@ -15,10 +15,12 @@ class EulerTour{
     vector<vector<int>> g;
     int root;
     int n;
+    vector<int> depth;
     vector<int> ord;
     vector<int> in, out;
     EulerTour(vector<vector<int>> g, int root): g(g), root(root){
         n = g.size();
+        depth.resize(n);
         in.resize(n);
         out.resize(n);
         build();
@@ -26,24 +28,24 @@ class EulerTour{
     private:
     void build(){
         vector<bool> seen(n, false);
-        ord.push_back(0);
-        dfs(0, seen);
+        dfs(root, seen);
         for(int i = 0; i < n; i++) in[i] = 1e9;
         for(int i = 0; i < ord.size(); i++){
             chmin(in[ord[i]], i);
             chmax(out[ord[i]], i);
         }
-        assert(ord.size() == 2*n-1);
+        assert(ord.size() == 2*n);
     }
     void dfs(int v, vector<bool> &seen){
+        ord.push_back(v);
         seen[v] = true;
         int cnt = 0;
         for(int to: g[v]){
             if(seen[to]) continue;
-            ord.push_back(to);
+            depth[to] = depth[v]+1;
             dfs(to, seen);
-            ord.push_back(v);
             cnt++;
-        }  
+        }
+        ord.push_back(v);
     }
 };

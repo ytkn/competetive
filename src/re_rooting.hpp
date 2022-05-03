@@ -15,7 +15,7 @@ struct ReRooting {
         dp.resize(n);
         G.resize(n);
     }
-    ReRooting(vector<vector<int>> G, T(*e)(), T(*merge)(T, T), T(*f)(T, int), T(*g)(T, int)): n(G.size()), G(g), e(e), merge(merge), f(f), g(g) {
+    ReRooting(vector<vector<int>> G, T(*e)(), T(*merge)(T, T), T(*f)(T, int), T(*g)(T, int)): n(G.size()), G(G), e(e), merge(merge), f(f), g(g) {
         dp.resize(n);
     }
     void add_edge(int u, int v){
