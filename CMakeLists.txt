@@ -35,6 +35,7 @@ set(
     binary_trie
     mat_sized
     matrix
+    mo
     rollback_unionfind
 )
 
