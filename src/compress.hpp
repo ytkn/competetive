@@ -1,5 +1,5 @@
 #include <vector>
-#include <set>
+#include <algorithm>
 #include <cassert>
 
 using namespace std;
@@ -10,9 +10,9 @@ class Compress{
     vector<T> data;
     int offset;
     Compress(vector<T> data_, int offset=0): offset(offset){
-        set<T> st;
-        for(T x: data_) st.insert(x);
-        for(T x: st) data.push_back(x);
+        data = data_;
+        sort(begin(data), end(data));
+        data.erase(unique(begin(data), end(data)), end(data));
     };
     int operator[](T x) {
         auto p = lower_bound(data.begin(), data.end(), x);
