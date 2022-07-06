@@ -2,6 +2,7 @@
 #include <random>
 #include <cassert>
 #include <set>
+#include <algorithm>
 #include "unionfind.hpp"
 
 using namespace std;
@@ -26,6 +27,34 @@ vector<vector<int>> gen_tree(int n){
         add_edge(u, v);
     }
     return tree;
+}
+
+vector<vector<int>> gen_star(int n){
+    random_device rnd;
+    mt19937 mt(rnd());
+    vector<int> p(n);
+    iota(p.begin(), p.end(), 0);
+    shuffle(p.begin(), p.end(), mt);
+    vector<vector<int>> g(n);
+    for(int i = 1; i < n; i++){
+        g[p[0]].push_back(p[i]);
+        g[p[i]].push_back(p[0]);
+    }
+    return g;
+}
+
+vector<vector<int>> gen_path(int n){
+    random_device rnd;
+    mt19937 mt(rnd());
+    vector<int> p(n);
+    iota(p.begin(), p.end(), 0);
+    shuffle(p.begin(), p.end(), mt);
+    vector<vector<int>> g(n);
+    for(int i = 1; i < n; i++){
+        g[p[i-1]].push_back(p[i]);
+        g[p[i]].push_back(p[i-1]);
+    }
+    return g;
 }
 
 vector<vector<int>> gen_undirected(int n, int m, bool is_connected){
