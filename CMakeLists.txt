@@ -35,6 +35,7 @@ set(
     binary_trie
     mat_sized
     matrix
+    max_rectangle_in_histgram
     mo
     rollback_unionfind
 )
