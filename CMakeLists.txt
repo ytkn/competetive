@@ -38,6 +38,8 @@ set(
     max_rectangle_in_histgram
     mo
     rollback_unionfind
+    manacher
+    longest_common_sequence
 )
 
 enable_testing()

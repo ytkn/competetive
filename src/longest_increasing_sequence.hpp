@@ -8,6 +8,7 @@ using namespace std;
  */ 
 template<typename T>
 int longest_increasing_sequence(const vector<T> &v, bool strict){
+    if(v.empty()) return 0;
     int n = v.size();
     const T inf = (*max_element(v.begin(), v.end()))+1;
     vector<T> dp(n, inf);

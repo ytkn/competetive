@@ -11,9 +11,7 @@ class SuffixArray{
         vector<int> lcp;
         string S;
         int n;
-        SuffixArray(string _S){
-            S = _S;
-            n = _S.size();
+        SuffixArray(string S): S(S), n(S.size()) {
             rank = vector<int>(n+1);
         }
         void construct_sa(){
