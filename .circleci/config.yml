@@ -21,7 +21,7 @@ jobs:
               make install
         - run:
             name: Install ACL
-            working_directory: ~/googletest
+            working_directory: ~/
             command: |
               mkdir ac-library
               wget -qO - https://github.com/atcoder/ac-library/archive/refs/tags/v1.5.1.tar.gz | tar -xz -C ac-library --strip-components 1
