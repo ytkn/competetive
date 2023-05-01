@@ -16,6 +16,7 @@ endfunction()
 
 set(
     tests
+    and_convolution
     discrete_log
     fft
     int
@@ -40,6 +41,7 @@ set(
     rollback_unionfind
     manacher
     longest_common_sequence
+    zeta_mobius
 )
 
 enable_testing()
