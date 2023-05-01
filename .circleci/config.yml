@@ -25,6 +25,8 @@ jobs:
             command: |
               mkdir ac-library
               wget -qO - https://github.com/atcoder/ac-library/archive/refs/tags/v1.5.1.tar.gz | tar -xz -C ac-library --strip-components 1
+              pwd
+              ls
         - checkout
         - run:
             name: CMake build files
