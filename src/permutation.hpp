@@ -16,6 +16,31 @@ vector<int> operate(vector<int> prev, vector<int> permutation){
     return ans;
 }
 
+
+/**
+ * 合成(p・q)
+ */
+vector<int> composition(vector<int> p, vector<int> q){
+    int n = p.size();
+    vector<int> v(n);
+    for(int i = 0; i < n; i++){
+        v[i] = q[p[i]];
+    }
+    return v;
+}
+
+/**
+ * 逆元 
+ */
+vector<int> inv(vector<int> p){
+    int n = p.size();
+    vector<int> ans(n);
+    for(int i = 0; i < n; i++){
+        ans[p[i]] = i;
+    }
+    return ans;
+}
+
 /**
  * 置換操作の累乗
  */
