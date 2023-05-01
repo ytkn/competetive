@@ -16,6 +16,7 @@ endfunction()
 
 set(
     tests
+    acl
     and_convolution
     discrete_log
     fft

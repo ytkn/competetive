@@ -19,13 +19,19 @@ jobs:
               wget -qO - https://github.com/google/googletest/archive/release-1.8.1.tar.gz | tar -xz
               cmake -D CMAKE_INSTALL_PREFIX:PATH=$HOME/googletest -D CMAKE_BUILD_TYPE=Release googletest-release-1.8.1
               make install
+        - run:
+            name: Install ACL
+            working_directory: ~/googletest
+            command: |
+              mkdir ac-library
+              wget -qO - https://github.com/atcoder/ac-library/archive/refs/tags/v1.5.1.tar.gz | tar -xz -C ac-library --strip-components 1
         - checkout
         - run:
             name: CMake build files
             command: |
               mkdir build
               cd build
-              cmake -D GTEST_ROOT:PATH=$HOME/googletest ..
+              cmake -D GTEST_ROOT:PATH=$HOME/googletest -DCMAKE_CXX_FLAGS=-isystem\ $HOME/atcoder_stl ..
         - run: |
             cd build
             make
