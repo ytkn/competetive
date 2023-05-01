@@ -31,7 +31,7 @@ jobs:
             command: |
               mkdir build
               cd build
-              cmake -D GTEST_ROOT:PATH=$HOME/googletest -DCMAKE_CXX_FLAGS=-isystem\ $HOME/atcoder_stl ..
+              cmake -D GTEST_ROOT:PATH=$HOME/googletest -DCMAKE_CXX_FLAGS=-isystem\ $HOME/ac-library ..
         - run: |
             cd build
             make
