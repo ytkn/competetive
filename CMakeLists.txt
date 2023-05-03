@@ -16,7 +16,7 @@ endfunction()
 
 set(
     tests
-    acl
+    bostan_mori
     and_convolution
     discrete_log
     fft
