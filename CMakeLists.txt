@@ -18,6 +18,7 @@ set(
     tests
     bostan_mori
     and_convolution
+    subset_convolution
     discrete_log
     fft
     int

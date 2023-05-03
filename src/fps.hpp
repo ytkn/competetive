@@ -8,10 +8,6 @@ using mint = atcoder::modint998244353;
 
 struct FPS: vector<mint>{
     using vector<mint>::vector;
-
-    /**
-     * veryfied: https://judge.yosupo.jp/submission/137319 
-     */
     FPS inv(int deg){
         FPS ans(deg);
         ans[0] = mint(1)/(*this)[0];
@@ -38,8 +34,28 @@ struct FPS: vector<mint>{
         return *this = FPS(ret.begin(), ret.end());
     }
 
+    FPS& operator+=(const FPS &r){
+       if(this->size() < r.size()) this->resize(r.size());
+       for(int i = 0; i < (int)r.size(); i++) (*this)[i] += r[i];
+        return *this;
+    }
+
+    FPS& operator-=(const FPS &r){
+       if(this->size() < r.size()) this->resize(r.size());
+       for(int i = 0; i < (int)r.size(); i++) (*this)[i] -= r[i];
+        return *this;
+    }
+
     FPS operator*(const FPS &r) const { 
         return FPS(*this) *= r; 
+    }
+
+    FPS operator+(const FPS &r) const { 
+        return FPS(*this) += r; 
+    }
+
+    FPS operator-(const FPS &r) const { 
+        return FPS(*this) -= r; 
     }
 
     FPS mod_deg(int deg){

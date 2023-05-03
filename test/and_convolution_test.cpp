@@ -22,7 +22,6 @@ void test_and_convolution(vector<long long> u, vector<long long> v, int n){
 
 TEST(and_convolution, and_convolution) {
     int n_exec = 10;
-    // run(1, 0, 0);
     int n = 10;
     while(n_exec--){
         vector<long long> u(1<<n);
