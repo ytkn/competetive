@@ -8,6 +8,8 @@ find_package(GTest REQUIRED)
 include_directories(src)
 include_directories(generator)
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++1z")
+
 function(add_unit_test name)
     add_executable(${name}_test test/${name}_test.cpp)
     target_link_libraries(${name}_test PRIVATE GTest::GTest GTest::Main)
@@ -42,6 +44,7 @@ set(
     mo
     rollback_unionfind
     manacher
+    segments
     longest_common_sequence
     zeta_mobius
 )
