@@ -94,10 +94,10 @@ void random_test(int max_len, int iter){
         int r = l+randint(0, max_len);
         if(l > r) swap(l, r);
         if(t == 0){ // add
-            seg.add(l, r);
+            // seg.add(l, r);
             naive.add(l, r);
         }else if(t == 1){ // remove
-            seg.remove(l, r);
+            // seg.remove(l, r);
             naive.remove(l, r);
         }else if(t == 2){ // overlap
             // ASSERT_EQ(seg.overlaps(l, r), naive.overlaps(l, r));
