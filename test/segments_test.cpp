@@ -94,22 +94,22 @@ void random_test(int max_len, int iter){
         int r = l+randint(0, max_len);
         if(l > r) swap(l, r);
         if(t == 0){ // add
-            // seg.add(l, r);
+            seg.add(l, r);
             naive.add(l, r);
         }else if(t == 1){ // remove
-            // seg.remove(l, r);
+            seg.remove(l, r);
             naive.remove(l, r);
         }else if(t == 2){ // overlap
-            // ASSERT_EQ(seg.overlaps(l, r), naive.overlaps(l, r));
+            ASSERT_EQ(seg.overlaps(l, r), naive.overlaps(l, r));
         }else{ // not covered
-            // ASSERT_EQ(seg.not_covered(l, r), naive.not_covered(l, r));
+            ASSERT_EQ(seg.not_covered(l, r), naive.not_covered(l, r));
         }
         
-        // auto segments_by_naive = naive.get_segments();
-        // ASSERT_EQ(segments_by_naive.size(), seg.mp.size());
-        // for(auto [l, r]: naive.get_segments()){
-        //     ASSERT_EQ(seg.mp[l], r);
-        // }
+        auto segments_by_naive = naive.get_segments();
+        ASSERT_EQ(segments_by_naive.size(), seg.mp.size());
+        for(auto [l, r]: naive.get_segments()){
+            ASSERT_EQ(seg.mp[l], r);
+        }
     }
 }
 
@@ -117,8 +117,8 @@ TEST(segments, random) {
     for(int i = 0; i < 50; i++){
         int max_len = [&](){
             if(i%3 == 0) return 5;
-            if(i%3 == 0) return 10;
-            if(i%3 == 0) return 50;
+            if(i%3 == 1) return 10;
+            if(i%3 == 2) return 50;
         }();
         random_test(max_len, 1000);
     }
